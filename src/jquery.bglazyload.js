@@ -38,7 +38,7 @@
 
       //call on initialise + window scrolls or resize
       $(window).on('load scroll resize', _throttle(function() {
-         lazyload(elem)
+         lazyload(elem);
       }, 300));
 
       function _throttle(action, delay) {
