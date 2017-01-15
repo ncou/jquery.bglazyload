@@ -6,7 +6,6 @@
  * Version: 1.1.0 (update NCOU)
  *
  */
-//https://github.com/wufenfen/lazyLoader/blob/master/jquery.lazyLoader.js
 
 (function($) {
    $.fn.bglazyload = function() {
