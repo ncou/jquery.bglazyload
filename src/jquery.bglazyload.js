@@ -6,62 +6,68 @@
  * Version: 1.1.0 (update NCOU)
  *
  */
-(function ( $ ) {
-	$.fn.bglazyload = function() {
-		var elem = this;
+//https://github.com/wufenfen/lazyLoader/blob/master/jquery.lazyLoader.js
 
-		var lazyload = function(elem){
-			var viewport_height = $(window).height();
-			var scrollTop = $(document).scrollTop();
+(function($) {
+   $.fn.bglazyload = function() {
+      var elem = this;
+      var poll;
 
-			if(elem.filter(":not('.loaded')").length){
-				elem.filter(":not('.loaded')").each(function() {
+      var lazyload = function(elem) {
+         var viewport_height = $(window).height();
+         var scrollTop = $(document).scrollTop();
 
+         console.log('TOTO')
 
-			        // Do something to each element here.
-		        	var offset_top = $(this).offset().top;
-					var elem_height = $(this).height();
+         if (elem.filter(":not('.loaded')").length) {
+            elem.filter(":not('.loaded')").each(function() {
 
-					if(offset_top + elem_height/3 < viewport_height + scrollTop){
-						var bg_img = $(this).data('bgimg');
+               // Do something to each element here.
+               var offset_top = $(this).offset().top;
+               var elem_height = $(this).height();
 
-						$(this).css({'background-image':"url("+bg_img+")"});
-						$(this).addClass('loaded');
-					}
-			    });
-			}
-		}
+               if (offset_top + elem_height / 3 < viewport_height + scrollTop) {
+                  var bg_img = $(this).data('bgimg');
 
-		//call on initialise
-		lazyload(elem);
+                  $(this).css({
+                     'background-image': "url(" + bg_img + ")"
+                  });
+                  $(this).addClass('loaded');
+               }
+            });
+         }
+      }
 
-		//call after window scrolls or resize
-	    $(window).on ('scroll resize', function(){
-	    	_throttle(lazyload(elem), 300);
-		});
+      //call on initialise
+      lazyload(elem);
 
-		function _throttle (action, delay) {
-        var handle = null,
+      //call after window scrolls or resize
+      $(window).on('scroll resize', _throttle(function() {
+         lazyload(elem)
+      }, 300));
+
+      function _throttle(action, delay) {
+         var handle = null,
             lastRun = 0
 
-        return function () {
+         return function() {
             if (handle) return
             var time = Date.now() - lastRun,
-                context = this,
-                args = arguments,
-                callback = function () {
-                    lastRun = Date.now()
-                    handle = false
-                    action.apply(context, args)
-                }
+               context = this,
+               args = arguments,
+               callback = function() {
+                  lastRun = Date.now()
+                  handle = false
+                  action.apply(context, args)
+               }
 
             if (time > delay) {
-                callback()
+               callback()
             } else {
-                handle = setTimeout(callback, delay)
+               handle = setTimeout(callback, delay)
             }
-        }
-    }
+         }
+      }
 
-	};
-}( jQuery ));
+   };
+}(jQuery));
