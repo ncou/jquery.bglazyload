@@ -7,6 +7,8 @@
  *
  */
 
+//https://github.com/wufenfen/lazyLoader/blob/master/jquery.lazyLoader.js
+
 (function($) {
    $.fn.bglazyload = function() {
       var elem = this;
@@ -34,20 +36,17 @@
          }
       }
 
-      //call on initialise
-      lazyload(elem);
-
-      //call after window scrolls or resize
-      $(window).on('scroll resize', _throttle(function() {
+      //call on initialise + window scrolls or resize
+      $(window).on('load scroll resize', _throttle(function() {
          lazyload(elem)
       }, 300));
 
       function _throttle(action, delay) {
          var handle = null,
-            lastRun = 0
+            lastRun = 0;
 
          return function() {
-            if (handle) return
+            if (handle) return;
             var time = Date.now() - lastRun,
                context = this,
                args = arguments,
@@ -55,12 +54,12 @@
                   lastRun = Date.now()
                   handle = false
                   action.apply(context, args)
-               }
+               };
 
             if (time > delay) {
-               callback()
+               callback();
             } else {
-               handle = setTimeout(callback, delay)
+               handle = setTimeout(callback, delay);
             }
          }
       }
