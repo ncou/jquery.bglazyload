@@ -16,8 +16,6 @@
          var viewport_height = $(window).height();
          var scrollTop = $(document).scrollTop();
 
-         console.log('TOTO')
-
          if (elem.filter(":not('.loaded')").length) {
             elem.filter(":not('.loaded')").each(function() {
 
