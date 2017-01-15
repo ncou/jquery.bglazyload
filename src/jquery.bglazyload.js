@@ -3,10 +3,9 @@
  *
  * Author: Vineet Garg(vineetgarg90@gmail.com)
  *
- * Version: 1.0.0
+ * Version: 1.1.0 (update NCOU)
  *
  */
-
 (function ( $ ) {
 	$.fn.bglazyload = function() {
 		var elem = this;
@@ -15,13 +14,20 @@
 			var viewport_height = $(window).height();
 			var scrollTop = $(document).scrollTop();
 			
+
+			console.log('TOTO', elem)
+
 			if(elem.filter(":not('.loaded')").length){
 				elem.filter(":not('.loaded')").each(function() {
+
+
 			        // Do something to each element here.
 		        	var offset_top = $(this).offset().top;
 					var elem_height = $(this).height();
+
 					if(offset_top + elem_height/3 < viewport_height + scrollTop){
 						var bg_img = $(this).data('bgimg');
+
 						$(this).css({'background-image':"url("+bg_img+")"});
 						$(this).addClass('loaded');
 					}
@@ -32,15 +38,33 @@
 		//call on initialise
 		lazyload(elem);
 
-		//call after window scrolls
-	    $(window).scroll(function(){
-	    	lazyload(elem);
+		//call after window scrolls or resize
+	    $(window).on ('scroll resize', function(){
+	    	_throttle(lazyload(elem), 300);
 		});
 
-		//call after window resize
-	    $(window).resize(function(){
-	    	lazyload(elem);
-		});
+		function _throttle (action, delay) {
+        var handle = null,
+            lastRun = 0
+
+        return function () {
+            if (handle) return
+            var time = Date.now() - lastRun,
+                context = this,
+                args = arguments,
+                callback = function () {
+                    lastRun = Date.now()
+                    handle = false
+                    action.apply(context, args)
+                }
+
+            if (time > delay) {
+                callback()
+            } else {
+                handle = setTimeout(callback, delay)
+            }
+        }
+    }
 
 	};
 }( jQuery ));
