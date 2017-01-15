@@ -10,7 +10,6 @@
 (function($) {
    $.fn.bglazyload = function() {
       var elem = this;
-      var poll;
 
       var lazyload = function(elem) {
          var viewport_height = $(window).height();
