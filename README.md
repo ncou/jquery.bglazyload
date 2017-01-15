@@ -18,7 +18,7 @@ Add container's background image path in "data-bgimage" data attribute
 then initialise using
 
 ```html
-$("div.lazy").lazyload();
+$("div.lazy").bglazyload();
 ```
 <a href='http://vineetgarg90.github.io/lazy-load-images/' target='_blank'>View Demo</a>
 
