@@ -9,6 +9,10 @@
 
 //https://github.com/wufenfen/lazyLoader/blob/master/jquery.lazyLoader.js
 
+// TODO : update the inViewport detection ?
+// https://gist.github.com/ncou/8daf00cd87d858a954fd83d874313342
+// http://infoheap.com/jquery-check-if-element-is-visible-in-viewport/
+
 (function($) {
    $.fn.bglazyload = function() {
       var elem = this;
